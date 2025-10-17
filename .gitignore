@@ -1,0 +1,9 @@
+env_ViT/
+vit-base-patch16-224/
+vit-base-patch16-384/
+processed_dataset/
+dataset/
+checkpoints/
+saved_model/
+models/
+*.pth

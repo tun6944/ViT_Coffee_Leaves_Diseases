@@ -93,15 +93,15 @@ if not DATASET_DIR.exists():
 MODEL_NAME = 'google/vit-base-patch16-224'
 local_model_dir = Path(__file__).parent / "vit-base-patch16-224"
 IMG_SIZE = 224
-BATCH_SIZE = 48
-EPOCHS = 10
+BATCH_SIZE = 32
+EPOCHS = 20
 BASE_LR = 5e-4
 WEIGHT_DECAY = 0.02
-WARMUP_EPOCHS = 1
-LABEL_SMOOTHING = 0.1
+WARMUP_EPOCHS = 2
+LABEL_SMOOTHING = 0.05
 MIXUP = True
-MIXUP_ALPHA = 0.4
-CUTMIX_ALPHA = 0.0  # có thể >0 nếu muốn CutMix
+MIXUP_ALPHA = 0.2
+CUTMIX_ALPHA = 0.0
 TRAIN_RATIO, VAL_RATIO, TEST_RATIO = 0.8, 0.1, 0.1
 NUM_WORKERS = 0
 PIN_MEMORY = torch.cuda.is_available()
@@ -170,9 +170,9 @@ else:
             files = [str(p) for p in cls_dir.rglob('*') if p.suffix.lower() in ALLOWED_EXTS]
             valid_files = [f for f in files if is_valid_image(f)]
             per_class[cls] = valid_files
-            print(f"\n{cls}: {len(valid_files)} ảnh hợp lệ")
+            print(f"{cls}: {len(valid_files)} ảnh hợp lệ")
         return per_class
-    def stratified_split(per_class, seed=42, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
+    def stratified_split(per_class, seed=SEED, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1):
         rng = np.random.default_rng(seed)
         train, val, test = [], [], []
         for cls, files in per_class.items():
@@ -195,9 +195,9 @@ else:
     train_paths, val_paths, test_paths = [], [], []
     train_labels, val_labels, test_labels = [], [], []
 
-    print(f'\nTổng train: {len(train_paths)} | val: {len(val_paths)} | test: {len(test_paths)}')
+    print(f'train: {train_paths} | val: {val_paths} | test: {test_paths}')
 
-    seed=42
+    seed=SEED
     src = Path(DATADIR)
     out = Path(OUTPUT + 'processed_dataset')
     out.mkdir(parents=True, exist_ok=True)
@@ -367,7 +367,7 @@ len(train_loader), len(val_loader), len(test_loader)
 use_local = local_model_dir.exists()
 try:
     if use_local:
-        print(f"Tìm thấy thư mục mô hình local: {local_model_dir}. Sẽ load từ local với num_labels={NUM_CLASSES}")
+        print(f"Tìm thấy thư mục mô hình local: {local_model_dir}. Sẽ load từ local với num_labels={NUM_CLASSES}\n")
         # Gán mapping nhãn theo tập lớp hiện có
         id2label = {i: name for i, name in enumerate(CLASS_NAMES)}
         label2id = {name: i for i, name in enumerate(CLASS_NAMES)}
@@ -437,7 +437,7 @@ else:
 
 scaler = torch.amp.GradScaler('cuda', enabled=torch.cuda.is_available())
 
-"""## 8) Vòng lặp huấn luyện + EarlyStopping + Checkpoint"""
+"""## 8) Vòng lặp huấn luyện"""
 
 def accuracy_from_logits(logits, targets):
     if logits.ndim == 2 and targets.ndim == 2:
@@ -502,7 +502,8 @@ def evaluate(loader):
 best_val_acc = -1.0
 patience, patience_count = EPOCHS / 2, 0
 history = {'train_loss': [], 'train_acc': [], 'val_loss': [], 'val_acc': []}
-ckpt_dir = Path(OUTPUT + 'checkpoints'); ckpt_dir.mkdir(parents=True, exist_ok=True)
+ckpt_dir = Path(OUTPUT + 'checkpoints')
+ckpt_dir.mkdir(parents=True, exist_ok=True)
 best_ckpt_path = ckpt_dir / 'best_model.pth'
 
 for epoch in range(1, EPOCHS+1):
@@ -513,12 +514,12 @@ for epoch in range(1, EPOCHS+1):
     history['train_loss'].append(tr_loss); history['train_acc'].append(tr_acc)
     history['val_loss'].append(val_loss); history['val_acc'].append(val_acc)
     dt = time.time()-t0
-    print(f'Epoch {epoch:02d}/{EPOCHS} | train_loss={tr_loss:.4f} acc={tr_acc:.4f} | val_loss={val_loss:.4f} acc={val_acc:.4f} | {dt:.1f}s')
+    print(f'Epoch {epoch}/{EPOCHS} | train_loss={tr_loss:.4f} acc={tr_acc:.4f} | val_loss={val_loss:.4f} acc={val_acc:.4f} | {dt:.1f}s')
     if val_acc > best_val_acc:
         best_val_acc = val_acc
         patience_count = 0
         torch.save({'model': model.state_dict(), 'epoch': epoch, 'val_acc': val_acc}, best_ckpt_path)
-        print('***** | ****** Lưu best model:', best_ckpt_path)
+        print('********************************* Lưu best model:', best_ckpt_path)
     else:
         patience_count += 1
         if patience_count >= patience:
@@ -559,7 +560,7 @@ plt.close(fig)
 """## 10) Đánh giá trên Test + Báo cáo chi tiết"""
 
 # Tải best model
-best_ckpt_path = Path(OUTPUT + 'checkpoints/best_model.pth')
+best_ckpt_path = Path(OUTPUT + 'models/best_model.pth')
 assert best_ckpt_path.exists(), 'Chưa có best checkpoint'
 ckpt = torch.load(best_ckpt_path, map_location=DEVICE)
 model.load_state_dict(ckpt['model'])

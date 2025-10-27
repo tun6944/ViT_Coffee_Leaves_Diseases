@@ -8,13 +8,13 @@
 # OUTPUT = '/content/drive/MyDrive/output_ViT'
 # print(DATADIR)
 
-"""
+
 # For running on Kaggle
 # DATADIR = '/kaggle/input/coffee-leaf'
 # OUTPUT = '/kaggle/working/'
 # print(DATADIR)
 # print(OUTPUT)
-"""
+
 DATADIR = 'dataset'
 OUTPUT = ''
 import os, sys, random, pathlib, time, math
@@ -94,10 +94,10 @@ MODEL_NAME = 'google/vit-base-patch16-224'
 local_model_dir = Path(__file__).parent / "vit-base-patch16-224"
 IMG_SIZE = 224
 BATCH_SIZE = 32
-EPOCHS = 20
-BASE_LR = 5e-4
-WEIGHT_DECAY = 0.02
-WARMUP_EPOCHS = 2
+EPOCHS = 2
+BASE_LR = 1e-4
+WEIGHT_DECAY = 0.05
+WARMUP_EPOCHS = 1
 LABEL_SMOOTHING = 0.05
 MIXUP = True
 MIXUP_ALPHA = 0.2

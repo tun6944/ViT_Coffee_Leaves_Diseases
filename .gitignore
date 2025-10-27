@@ -4,7 +4,6 @@ vit-base-patch16-384/
 vit-large-patch16-224/
 processed_dataset/
 dataset/
-checkpoints/
 saved_model/
 models/
 archived_dataset_and_models/

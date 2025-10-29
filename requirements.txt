@@ -9,6 +9,7 @@ scikit-learn
 seaborn==0.13.2 
 opencv-python
 hf_xet
+safetensors
 sentence-transformers
 transformers
 langchain

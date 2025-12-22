@@ -1,0 +1,9 @@
+env_ViT/
+khoe_manh/
+miner/
+test_images/
+__pycache__/
+*.safetensors
+*.png
+*.zip
+*.rar

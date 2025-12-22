@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhận diện bệnh lá cà phê</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 420px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 24px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e8f50;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f7f9fa;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .confidence {
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Nhận diện bệnh lá cà phê</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Dự đoán</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <p class="label">Kết quả: {{ result.label }}</p>
+        <p class="confidence">Độ tin cậy: {{ result.confidence }}</p>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

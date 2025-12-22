@@ -5,8 +5,13 @@ pip install -r requirements.txt
 
 ```
 ### Step 2
-Run the python file to train model on your local PC (CUDA require for faster model training): 
+Run the command below to run Uvicorn 
 ```
-py v1_ViT_disease_coffee_leaves.py
+uvicorn main:app --host 0.0.0.0 --port 8000
 
+```
+### Step 3
+Access localhost webpage
+```
+http://localhost:8000/
 ```

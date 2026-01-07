@@ -1,0 +1,12 @@
+test_images/
+val/
+valid/
+test/
+__pycache__/
+259/
+*.safetensors
+*.docx
+*.png
+*.jpg
+*.zip
+*.rar

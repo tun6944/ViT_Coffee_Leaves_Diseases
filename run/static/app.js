@@ -41,20 +41,25 @@ function drawBoxes(detections) {
   const resultDiv = document.getElementById("result");
   resultDiv.innerHTML = "";
 
+  let shownCount = 0;
   if (detections && detections.length > 0) {
     detections.forEach((det, idx) => {
-      const [x1, y1, x2, y2] = det.bbox;
-      ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+      if (det.confidence >= 0.6) {
+        const [x1, y1, x2, y2] = det.bbox;
+        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
 
-      const label = `${det.class_name} (${(det.confidence * 100).toFixed(1)}%)`;
-      ctx.fillText(label, x1, Math.max(y1 - 6, 15));
+        const label = `${det.class_name} (${(det.confidence * 100).toFixed(1)}%)`;
+        ctx.fillText(label, x1, Math.max(y1 - 6, 15));
 
-      resultDiv.innerHTML += `
-        <p><b>ROI ${idx + 1}:</b> ${det.class_name}
-        — ${(det.confidence * 100).toFixed(1)}%</p>
-      `;
+        resultDiv.innerHTML += `
+          <p><b>ROI ${idx + 1}:</b> ${det.class_name}
+          — ${(det.confidence * 100).toFixed(1)}%</p>
+        `;
+        shownCount++;
+      }
     });
-  } else {
+  }
+  if (shownCount === 0) {
     resultDiv.innerHTML = "<p><i>No disease detected</i></p>";
   }
 }

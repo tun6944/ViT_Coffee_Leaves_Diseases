@@ -3,6 +3,7 @@ val/
 valid/
 test/
 __pycache__/
+best_saved_model/
 259/
 *.safetensors
 *.docx

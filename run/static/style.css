@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f5f7fb;
+  margin: 0;
+  padding: 16px;
+  color: #222;
+}
+
+.container {
+  max-width: 960px;
+  margin: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+input[type="file"] {
+  padding: 6px;
+}
+
+button {
+  padding: 10px 18px;
+  background: #2d6cdf;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f56b8;
+}
+
+.preview-wrapper {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+#preview {
+  max-width: 100%;
+  max-height: 280px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.canvas-wrapper {
+  text-align: center;
+}
+
+canvas {
+  max-width: 100%;
+  border: 1px solid #444;
+  border-radius: 6px;
+}
+
+#result {
+  margin-top: 16px;
+  padding: 12px;
+  background: #eef3ff;
+  border-left: 5px solid #2d6cdf;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  h2 {
+    font-size: 18px;
+  }
+
+  button {
+    width: 100%;
+  }
+}

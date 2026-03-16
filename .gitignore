@@ -1,6 +1,7 @@
 annotations/
 test_images/
 __pycache__/
+*.ipynb
 *.docx
 *.zip
 *.rar

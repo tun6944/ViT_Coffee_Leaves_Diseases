@@ -44,7 +44,7 @@ function drawBoxes(detections) {
   let shownCount = 0;
   if (detections && detections.length > 0) {
     detections.forEach((det, idx) => {
-      if (det.confidence >= 0.6) {
+      if (det.confidence >= 0.4) {
         const [x1, y1, x2, y2] = det.bbox;
         ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
 

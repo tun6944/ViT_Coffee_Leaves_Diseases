@@ -1,13 +1,7 @@
 test_images/
-val/
-valid/
-test/
 __pycache__/
-best_saved_model/
-259/
+annotation/
 *.safetensors
 *.docx
-*.png
-*.jpg
 *.zip
 *.rar

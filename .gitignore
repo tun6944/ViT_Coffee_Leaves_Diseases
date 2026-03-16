@@ -1,6 +1,6 @@
+annotations/
 test_images/
 __pycache__/
-annotation/
 *.docx
 *.zip
 *.rar

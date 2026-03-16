@@ -10,7 +10,7 @@ from transformers import ViTForImageClassification, ViTImageProcessor
 from fastapi.responses import HTMLResponse
 #  CONFIG 
 YOLO_MODEL_PATH = "models/best.pt"
-VIT_MODEL_DIR = "models/vit_best"
+VIT_MODEL_DIR = "models/vit"
 DEVICE = "cuda"
 CONF_THRES = 0.05
 IMG_SIZE = 224

@@ -1,7 +1,0 @@
-test_images/
-__pycache__/
-annotation/
-*.safetensors
-*.docx
-*.zip
-*.rar

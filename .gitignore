@@ -3,7 +3,6 @@ test_images/
 __pycache__/
 docs/
 datasets/
-*.ipynb
 *.docx
 *.zip
 *.rar

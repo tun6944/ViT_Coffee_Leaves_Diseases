@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DenseNet-121 Vision</title>
+    <link rel="stylesheet" href="/static/style_dense.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DenseNet-121</h1>
+            <p>High-Performance Image Classification</p>
+        </header>
+
+        <div class="upload-container" id="drop-zone">
+            <input type="file" id="file-input" accept="image/*" hidden>
+            <div class="upload-content">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p>Drag & Drop your image here</p>
+                <span>or click to browse</span>
+            </div>
+            <img id="image-preview" class="hidden" alt="Preview">
+        </div>
+
+        <button id="predict-btn" class="glow-on-hover" disabled>Analyze Image</button>
+
+        <div id="results-container" class="hidden">
+            <h3>Prediction Results</h3>
+            <div id="predictions"></div>
+        </div>
+        
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Processing via ONNX Runtime...</p>
+        </div>
+    </div>
+    <script src="/static/script_dense.js"></script>
+</body>
+</html>

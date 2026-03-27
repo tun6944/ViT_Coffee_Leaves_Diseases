@@ -2,11 +2,11 @@
   "architectures": [
     "ViTForImageClassification"
   ],
-  "attention_probs_dropout_prob": 0,
+  "attention_probs_dropout_prob": 0.0,
   "dtype": "float32",
   "encoder_stride": 16,
   "hidden_act": "gelu",
-  "hidden_dropout_prob": 0,
+  "hidden_dropout_prob": 0.0,
   "hidden_size": 768,
   "id2label": {
     "0": "nam_ri_sat",
@@ -34,5 +34,5 @@
   "pooler_act": "tanh",
   "pooler_output_size": 768,
   "qkv_bias": true,
-  "transformers_version": "4.57.3"
+  "transformers_version": "5.3.0"
 }
